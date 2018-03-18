@@ -2,6 +2,7 @@ from django.db import models
 from treebeard.mp_tree import MP_Node
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from datetime import datetime
 # Create your models here.
 
 class Topic(MP_Node):
@@ -13,10 +14,17 @@ class Topic(MP_Node):
 
 class Article(models.Model):
     name = models.CharField(max_length=200)
-    hard = models.IntegerField()
+    EXE_OR_THE_CHOICES = (('exercise','exercise'),('theory','theory'))
+    exerciese_or_theory = models.CharField(max_length=50, choices=EXE_OR_THE_CHOICES,blank=True)
+    pub_date = models.DateTimeField('date published',
+                                    default=datetime.now())
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    importancy = models.CharField(max_length=100)
+    HARD_AND_IMPORTANCY_CHOICES = zip( range(1,6), range(1,6) )
+    hard = models.IntegerField(choices=HARD_AND_IMPORTANCY_CHOICES, blank=True)
+    HARD_AND_IMPORTANCY_CHOICES = zip( range(1,6), range(1,6) )
+    importancy = models.IntegerField(choices=HARD_AND_IMPORTANCY_CHOICES, blank=True)
     text = RichTextUploadingField()
+    
 
     def __str__(self):
         return self.name
@@ -24,4 +32,5 @@ class Article(models.Model):
 
 class Scientist(models.Model):
     name = models.CharField(max_length=100)
-    year = models.CharField(max_length=20)
+    pub_date = models.DateTimeField('date published', default=datetime.now())
+    text = RichTextUploadingField(default='')
