@@ -1,0 +1,10 @@
+{% if topics %}
+    <ul>
+    {% for topic in topics%}
+        <li>{{ topic.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polss there</p>
+    
+{% endif %}
