@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chemistry</title>
+        {% load static %}
+        <link href='{% static "articles/main.css" %}' rel="stylesheet" type="text/css">
+        <link href='{% static "articles/Exercsises_and_HardArticles.css" %}' rel="stylesheet" type="text/css">
+        {%block stylesheets %}
+        
+        {% endblock %}
+    </head>
+   <body>
+        <header>
+            <nav>
+                <a class="menu_item" href="{% url 'articles:index' articles_id=1 %}"><img src='{% static "articles/img/MainPageIcon.png" %}'><span>Главная</span></a>
+                <a class="menu_item" href="{% url 'articles:exercises' articles_id=1 %}"><img src="{% static 'articles/img/Exercise.png' %}"><span>Задачи</span></a>
+                <a class="menu_item" href="{% url 'articles:topics' %}"><img src="{% static 'articles/img/AllChemistryTopics.png' %}"><span> Туториал</span></a>
+                <a class="menu_item" href="{% url 'articles:theories' articles_id=1  %}"><img src="{% static 'articles/img/Theory.png' %}"><span>Теория</span></a>
+                <a class="menu_item" href="{% url 'articles:scientists' articles_id=1 %}"><img src="{% static 'articles/img/Scientists.png' %}"><span>История химии</span></a>
+            </nav>
+        </header>
+        {% block search %} {% endblock %}
+        {% block content %} {% endblock %}
+        <footer>
+            Web developer: Viktor Stokolos <br>
+            Content maneger: Dmytro Yavorski <br>
+            Copyright © 2017-2018. All Rights Reserved. <br>
+        </footer>
+   </body>
+
+</html>

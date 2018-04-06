@@ -1,0 +1,27 @@
+.detail_article_wrapper {
+    padding: 10px;
+}
+.article_detail_header {
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: rgba(120, 193, 255, 0.5);
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.article_detail_header_firs_line {
+    
+}
+.article_detail_type {
+    
+}
+.article_detail_topic {
+    
+}
+.article_title {
+    
+}
+.article_detail_date {
+    
+}

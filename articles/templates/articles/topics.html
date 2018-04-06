@@ -1,10 +1,23 @@
-{% if topics %}
-    <ul>
-    {% for topic in topics%}
-        <li>{{ topic.name }}</li>
+
+{% extends 'articles/base.html' %}
+{% block content%}
+{% load static %}
+{% load articles_extras %}
+<div class="topic-list-wrapper">
+{% for item, info in topics %}
+    {% if info.open %}
+        <ul class="topic-list"><li><a href="{% url 'articles:topic' topic_name=item|substr articles_id=1 %}">
+    {% else %}
+        </a></li><li><a href="{% url 'articles:topic' topic_name=item|substr articles_id=1 %}">
+        
+    {% endif %}
+
+    {{ item }}
+
+    {% for close in info.close %}
+        </a></li></ul>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>No polss there</p>
-    
-{% endif %}
+{% endfor %}   
+</div>
+
+{% endblock %}

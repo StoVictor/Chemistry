@@ -1,7 +1,7 @@
 from django import forms
 
 from django.contrib import admin
-from .models import Topic, Article, Scientist
+from .models import Topic, Article, Scientist, Tag
 
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
@@ -13,7 +13,7 @@ class MyAdmin(TreeAdmin):
     form = movenodeform_factory(Topic)
 
 
-
+admin.site.register(Tag)
 admin.site.register(Topic, MyAdmin)
 admin.site.register(Article)
 

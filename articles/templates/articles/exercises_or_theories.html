@@ -1,0 +1,114 @@
+{% extends "articles/base.html" %}
+       {% block search %}
+        <div class="search_form_wrapper">
+           {% if type == 'theory' %}
+            <form action="{% url 'articles:theories' articles_id=1 %}" method="post" name="search_form">
+            {% elif type == 'exercise' %}
+            <form action="{% url 'articles:exercises' articles_id=1 %}" method="post" name="search_form">  
+            {% endif %}
+               {% csrf_token %}
+               <div class="inputs_container">
+                   <span class="search_hint">Введите название статьи или выберете соотвествующие теги</span>
+                   <input type="search" name="name">
+                   <div class="tags_container">
+                   {% for tag in tags%}
+                   <span><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</span>
+                   {% endfor %}
+                   </div>
+                   <input type="submit" class="send_tags_button" value="Send">               
+               </div>
+            </form>
+        </div>
+        {% endblock %}
+        {% block content %}
+        {% load static %}
+        {% load articles_extras %}
+        {% for article in articles %}
+        
+        <article>
+          <div class="article_head">
+            <div class="article_first_line">
+               
+                <span class="article_type">
+                {% if article.exerciese_or_theory == 'theory' %}
+                <img src="{% static 'articles/img/Theory_article.png' %}">
+                {% elif article.exerciese_or_theory == 'exercise' %}
+                <img src="{% static 'articles/img/Exercise_detail.png' %}">
+                {% endif %}
+                </span>
+                <span class="artile_date">|{{article.pub_date|date:"d-m-Y"}}|</span>
+                <span class="article_name">{{article.name}}</span>  
+                <span class="article_difficult">
+                    Сложность:
+                    {% if article.hard >= 1 %}
+                    <img src="{% static 'articles/img/red_colba_opacity.png' %}">
+                    {% endif %}
+                    {% if article.hard >= 2  %}
+                    <img src="{% static 'articles/img/red_colba_opacity.png' %}">
+                    {% endif %}
+                    {% if article.hard >= 3  %}
+                    <img src="{% static 'articles/img/red_colba_opacity.png' %}">
+                    {% endif %}
+                    {% if article.hard >= 4  %}
+                    <img src="{% static 'articles/img/red_colba_opacity.png' %}">
+                    {% endif %}
+                    {% if article.hard == 5  %}
+                    <img src="{% static 'articles/img/red_colba_opacity.png' %}">
+                    {% endif %}
+                </span>   
+            </div>
+            <div class="article_second_line">
+                <span class="article_topic"><a href="{% url 'articles:topic' topic_name=article.topic.name|substr articles_id=1 %}">{{article.topic}}</a></span>   
+            </div>
+
+          </div>
+           <div class="article_body">
+               <div>
+                {{article.text|safe|truncatewords:60}}
+                </div>
+           </div>
+           <div class="article_tags">
+              {% for tag in article.tags.all %}
+               <span class="tag"><a href="{% url 'articles:tags' tag_id=tag.id articles_id=1 %}">#{{ tag.name }}</a></span>
+              {% endfor %}
+           </div>          
+           <div class="article_button">
+              {% if type == 'theory' %}
+               <a href="{% url 'articles:theories_detail' article_id=article.id %}">Открыть статью</a>
+               {% elif type == 'exercise' %}
+               <a href="{% url 'articles:exercise_detail' article_id=article.id %}">Открыть статью</a>
+               {% endif %}
+           </div>
+            
+        </article>
+        {% endfor %}
+        
+        <div class="pagination">
+          
+            {% if type == 'theory' %}
+            <a href="{% url 'articles:theories' articles_id=long_previous_page %}" class="pag_elem"> <<  </a>
+            <a href="{% url 'articles:theories' articles_id=previous_page %}" class="pag_elem"> < </a>
+            {% for page in number_of_pages %}
+            <a href="{% url 'articles:theories' articles_id=page %}" class="pag_elem">
+                {{ page }}
+            </a>
+            {% endfor %}
+            <a href="{% url 'articles:theories' articles_id=next_page %}" class="pag_elem"> > </a>
+            <a href="{% url 'articles:theories' articles_id=long_next_page %}" class="pag_elem"> >> </a>
+            
+            {% elif type == 'exercise' %}
+            <a href="{% url 'articles:exercises' articles_id=long_previous_page %}" class="pag_elem"> <<  </a>
+            <a href="{% url 'articles:exercises' articles_id=previous_page %}" class="pag_elem"> < </a>
+            {% for page in number_of_pages %}
+            <a href="{% url 'articles:exercises' articles_id=page%}" class="pag_elem">
+                {{ page }}
+            </a>
+            {% endfor %}
+            <a href="{% url 'articles:exercises' articles_id=next_page %}" class="pag_elem"> > </a>
+            <a href="{% url 'articles:exercises' articles_id=long_next_page %}" class="pag_elem"> >> </a>            
+            {% endif %}
+ 
+
+         </div>
+         
+        {% endblock %}

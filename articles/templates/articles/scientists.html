@@ -1,0 +1,60 @@
+{% extends "articles/base.html"%}
+       {%block search %}
+        <div class="search_form_wrapper">
+            <form action="{% url 'articles:scientists' articles_id=1 %}" method="post" name="search_form">
+               {% csrf_token %}
+               <div class="inputs_container">
+                   <span class="search_hint">Введите название статьи или выберете соотвествующие теги</span>
+                   <input type="search" name="name">
+                   <div class="tags_container">
+                   {% for tag in tags%}
+                   <span><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</span>
+                   {% endfor %}
+                   </div>
+                   <input type="submit" class="send_tags_button" value="Send">               
+               </div>
+            </form>
+        </div>
+        {% endblock %}
+        {% block content %}
+        {% load static %}
+        {% for scientist in scientists %}
+        <article>
+          <div class="article_head">
+            <div class="article_first_line">
+                <span class="article_type">
+                <img src="{% static 'articles/img/Scientists_article.png' %}">
+                </span>
+                <span class="artile_date">|{{scientist.pub_date|date:"d-m-Y"}}|</span>
+                <span class="article_name scientist_article">{{scientist.name}}</span>  
+            </div>
+          </div>
+           <div class="article_body">
+               <div>
+                {{scientist.text|safe|truncatewords:60}}
+                </div>
+           </div>
+           <div class="article_tags">
+              {% for tag in scientist.tags.all %}
+               <span class="tag"><a href="{% url 'articles:tags' tag_id=tag.id articles_id=1 %}">#{{ tag.name }}</a></span>
+              {% endfor %}
+           </div>          
+           <div class="article_button">
+               <a href="{% url 'articles:scientists_detail' scientist_id=scientist.id %}">Открыть статью</a>
+           </div>
+            
+        </article>
+        {% endfor %}
+        <div class="pagination">
+            <a href="{% url 'articles:scientists' articles_id=long_previous_page %}" class="pag_elem"> <<  </a>
+            <a href="{% url 'articles:scientists' articles_id=previous_page %}" class="pag_elem"> < </a>
+            {% for page in number_of_pages %}
+            <a href="{% url 'articles:scientists' articles_id=page %}" class="pag_elem">
+                {{ page }}
+            </a>
+            {% endfor %}
+            <a href="{% url 'articles:scientists' articles_id=next_page %}" class="pag_elem"> > </a>
+            <a href="{% url 'articles:scientists' articles_id=long_next_page %}" class="pag_elem"> >> </a> 
+        </div> 
+        
+        {% endblock %}

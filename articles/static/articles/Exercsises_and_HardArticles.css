@@ -1,0 +1,29 @@
+.tags_container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.tags_container > span:before{
+    content: "| "
+}
+.inputs_container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin-top: 20px;
+}
+.send_tags_button {
+    width: 60px;
+    align-self: center;
+    
+}
+
+.search_name_field > input {
+    width: 65%;
+}
+.search_hint {
+    align-self: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 10px;
+}
