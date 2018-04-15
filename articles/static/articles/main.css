@@ -140,6 +140,18 @@ footer {
     align-self: center;
     margin-top: 15px;
 }
+.pagination span a {
+    font-size: 20px;
+    padding: 0 5px 0 5px;
+    color: #2703ed;
+    text-decoration: none;
+}
+.current_page {
+    background-color: #6b75ed;
+}
+.step-links > a:hover {
+    background-color: #12a4d9;
+}
 .pag_elem {
     padding: 5px;
     text-decoration: none;
@@ -153,10 +165,22 @@ footer {
 .search_form_wrapper { 
     align-self: center;
 }
-
+.filter_container{
+    display: flex;
+    align-self: center;
+    margin: 10px;
+}
 .scientist_article {
     display: flex;
     flex-basis: 630px;
+}
+
+.button_for_all_tags {
+    align-self: center;
+}
+.inputs_container {
+    display: flex;
+    flex-direction: column;
 }
 
 .topic-list {

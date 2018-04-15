@@ -10,7 +10,11 @@
               <div class="article_detail_header">
                <div class="article_detail_header_firs_line">
                 <div class="article_detail_type">
+                   {% if article.exerciese_or_theory == 'theory' %}
                     <img src="{% static 'articles/img/Theory_article.png' %}">
+                    {% elif article.exerciese_or_theory == 'exercise' %}
+                    <img src="{% static 'articles/img/Exercise_detail.png' %}">
+                    {% endif %}
                 </div>
                 <div class="article_detail_topic">
                     {{article.topic}}

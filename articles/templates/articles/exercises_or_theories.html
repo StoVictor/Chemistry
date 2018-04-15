@@ -1,25 +1,4 @@
 {% extends "articles/base.html" %}
-       {% block search %}
-        <div class="search_form_wrapper">
-           {% if type == 'theory' %}
-            <form action="{% url 'articles:theories' articles_id=1 %}" method="post" name="search_form">
-            {% elif type == 'exercise' %}
-            <form action="{% url 'articles:exercises' articles_id=1 %}" method="post" name="search_form">  
-            {% endif %}
-               {% csrf_token %}
-               <div class="inputs_container">
-                   <span class="search_hint">Введите название статьи или выберете соотвествующие теги</span>
-                   <input type="search" name="name">
-                   <div class="tags_container">
-                   {% for tag in tags%}
-                   <span><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</span>
-                   {% endfor %}
-                   </div>
-                   <input type="submit" class="send_tags_button" value="Send">               
-               </div>
-            </form>
-        </div>
-        {% endblock %}
         {% block content %}
         {% load static %}
         {% load articles_extras %}
@@ -58,7 +37,7 @@
                 </span>   
             </div>
             <div class="article_second_line">
-                <span class="article_topic"><a href="{% url 'articles:topic' topic_name=article.topic.name|substr articles_id=1 %}">{{article.topic}}</a></span>   
+                <span class="article_topic"><a href="{% url 'articles:topic' topic_name=article.topic.name|substr %}">{{article.topic}}</a></span>   
             </div>
 
           </div>
@@ -69,7 +48,7 @@
            </div>
            <div class="article_tags">
               {% for tag in article.tags.all %}
-               <span class="tag"><a href="{% url 'articles:tags' tag_id=tag.id articles_id=1 %}">#{{ tag.name }}</a></span>
+               <span class="tag"><a href="{% url 'articles:search'  %}?tag_name={{tag.name}}">#{{ tag.name }}</a></span>
               {% endfor %}
            </div>          
            <div class="article_button">
@@ -83,32 +62,61 @@
         </article>
         {% endfor %}
         
-        <div class="pagination">
-          
-            {% if type == 'theory' %}
-            <a href="{% url 'articles:theories' articles_id=long_previous_page %}" class="pag_elem"> <<  </a>
-            <a href="{% url 'articles:theories' articles_id=previous_page %}" class="pag_elem"> < </a>
-            {% for page in number_of_pages %}
-            <a href="{% url 'articles:theories' articles_id=page %}" class="pag_elem">
-                {{ page }}
-            </a>
-            {% endfor %}
-            <a href="{% url 'articles:theories' articles_id=next_page %}" class="pag_elem"> > </a>
-            <a href="{% url 'articles:theories' articles_id=long_next_page %}" class="pag_elem"> >> </a>
-            
-            {% elif type == 'exercise' %}
-            <a href="{% url 'articles:exercises' articles_id=long_previous_page %}" class="pag_elem"> <<  </a>
-            <a href="{% url 'articles:exercises' articles_id=previous_page %}" class="pag_elem"> < </a>
-            {% for page in number_of_pages %}
-            <a href="{% url 'articles:exercises' articles_id=page%}" class="pag_elem">
-                {{ page }}
-            </a>
-            {% endfor %}
-            <a href="{% url 'articles:exercises' articles_id=next_page %}" class="pag_elem"> > </a>
-            <a href="{% url 'articles:exercises' articles_id=long_next_page %}" class="pag_elem"> >> </a>            
+<div class="pagination">
+    <span class="step-links">
+        {% if articles.has_previous %}
+            <a href="?page=1">&laquo;</a>
+            <a href="?page={{ articles.previous_page_number }}">previous</a>
+        {% else %}
+            <a href="?page=1">&laquo;</a>
+            <a href="?page=1">previous</a>        
+        {% endif %}
+        
+        {% if articles.paginator.num_pages <= 3  %}
+        {% for num in articles.paginator.page_range %}
+            {% if forloop.counter != articles.number %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% else %}
+            <a class="current_page" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
             {% endif %}
- 
+        {% endfor %}
+        {% elif articles.paginator.num_pages >= 3 and articles.number < 3 %}
+            {% for num in 'xxx' %}
+                {%if forloop.counter != articles.number %}
+                <a href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                {% else %}
+                <a class="current_page" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                {% endif %}
+            {% endfor %}
+        {% elif articles.paginator.num_pages >= 3 and articles.number >= 3 %}
 
-         </div>
+            {% for num in 'xx' %}
+                    {% if  articles.number|substract:forloop.counter >= 1 %}
+                       {%if forloop.counter == 1 %}
+                        <a href="?page={{articles.number|substract:2}}">{{articles.number|substract:2}}</a>
+                        {%elif forloop.counter == 2 %}
+                        <a href="?page={{articles.number|substract:1}}">{{articles.number|substract:1}}</a>
+                        {% endif %}
+                    {% endif %}
+            {% endfor %}
+           
+            <a class="current_page" href="?page={{articles.number}}">{{articles.number}}</a>
+            {% for num in 'xxx' %}
+                {% if articles.number|add:forloop.counter <= articles.paginator.num_pages %}
+                    <a href="?page={{ articles.number|add:forloop.counter }}">{{ articles.number|add:forloop.counter }}</a>
+                {% endif %}
+            {% endfor %}
+
+        {% endif %}
+        
+        {% if articles.has_next %}
+            <a href="?page={{ articles.next_page_number }}">next</a>
+            <a href="?page={{ articles.paginator.num_pages }}">&raquo;</a>
+        {% else %}
+            <a href="?page={{ articles.paginator.num_pages }}">next</a>
+            <a href="?page={{ articles.paginator.num_pages }}">&raquo;</a>
+        {% endif %}
+    </span>
+</div>
          
         {% endblock %}

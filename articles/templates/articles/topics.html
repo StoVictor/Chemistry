@@ -4,11 +4,11 @@
 {% load static %}
 {% load articles_extras %}
 <div class="topic-list-wrapper">
-{% for item, info in topics %}
+{% for item, info in articles %}
     {% if info.open %}
-        <ul class="topic-list"><li><a href="{% url 'articles:topic' topic_name=item|substr articles_id=1 %}">
+        <ul class="topic-list"><li><a href="{% url 'articles:topic' topic_name=item|substr %}">
     {% else %}
-        </a></li><li><a href="{% url 'articles:topic' topic_name=item|substr articles_id=1 %}">
+        </a></li><li><a href="{% url 'articles:topic' topic_name=item|substr %}">
         
     {% endif %}
 

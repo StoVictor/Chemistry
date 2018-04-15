@@ -13,3 +13,9 @@ def addstr(arg1, arg2):
 def substr(arg):
     """return a substring starting with seven liters"""
     return arg.replace('Topic: ', '')
+
+@register.filter(name='substract')
+def substract(arg1, arg2):
+    "substract arg2 from arg1"
+    return arg1-arg2
+
