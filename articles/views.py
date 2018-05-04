@@ -188,7 +188,7 @@ def index(request):
 
 def exercise(request):
     return simple_view(request, Article.objects.filter(exerciese_or_theory='exercise').order_by('-pub_date'),
-                       'articles/exercises_or_theories.html', 'exercise')
+                       'articles/index.html', 'exercise')
 
 
 def exercise_detail(request, article_id):
@@ -197,7 +197,7 @@ def exercise_detail(request, article_id):
 
 def theories(request):
     return simple_view(request, Article.objects.filter(exerciese_or_theory='theory').order_by('-pub_date'),
-                       'articles/exercises_or_theories.html', 'theory')
+                       'articles/index.html', 'theory')
 
 
 def theories_detail(request, article_id):
@@ -233,7 +233,7 @@ def topic(request, topic_name):
             'type_i_or_t': 'topic',
         }
         
-        return render(request, 'articles/topic.html', context)
+        return render(request, 'articles/index.html', context)
 
 
 def search(request):
@@ -271,14 +271,6 @@ def search(request):
         checked_list['exercise'] = request.session['filter_exercise']
 
     elif request.method == 'GET':
-
-        if not request.GET.get('page'):
-            request.session['articles_tags'] = {}
-
-            checked_list['history'] = request.session['filter_history'] = True
-            checked_list['theory'] = request.session['filter_exercise'] = True
-            checked_list['exercise'] = request.session['filter_exercise'] = True
-
         try:
             checked_list['history'] = request.session['filter_history']
         except KeyError:
@@ -291,6 +283,13 @@ def search(request):
             checked_list['exercise'] = request.session['filter_exercise']
         except KeyError:
             request.session['filter_exercise'] = True
+
+        if not request.GET.get('page'):
+            request.session['articles_tags'] = {}
+
+            checked_list['history'] = request.session['filter_history'] = True
+            checked_list['theory'] = request.session['filter_exercise'] = True
+            checked_list['exercise'] = request.session['filter_exercise'] = True
 
         articles = get_articles_by_types('GET', request, selected_tags)
         n_articles = []
