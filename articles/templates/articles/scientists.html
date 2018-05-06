@@ -12,10 +12,8 @@
                 </span>
             </div>
 
-           <div class="article_body">
-               <div>
+           <div class="article-body">
                 {{article.text|safe|truncatewords:60}}
-                </div>
            </div>
            <div class="article_tags">
               {% for tag in article.tags.all %}
