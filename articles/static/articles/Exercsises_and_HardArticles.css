@@ -3,15 +3,17 @@
     flex-wrap: wrap;
     margin-bottom: 10px;
 }
+
 .tags_container > span:before{
     content: "| "
 }
+
 .inputs_container {
     display: flex;
     flex-direction: column;
-    width: 600px;
     margin-top: 20px;
 }
+
 .send_tags_button {
     width: 60px;
     align-self: center;
@@ -21,9 +23,65 @@
 .search_name_field > input {
     width: 65%;
 }
+
 .search_hint {
     align-self: center;
     font-weight: 700;
     font-size: 20px;
     padding: 10px;
+}
+
+.search_wrapper {
+    align-self: center;
+}
+.search_wrapper > input {
+    width: 400px;
+}
+.search_form_wrapper {
+    background-color: #e5e5e5;
+    width: 1000px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.search_form_wrapper { 
+    align-self: center;
+}
+.filter_container{
+    display: flex;
+    align-self: center;
+    margin: 10px;
+}
+.button_for_all_tags {
+    align-self: center;
+}
+.inputs_container {
+    display: flex;
+    flex-direction: column;
+}
+.tags_container {
+    display: flex;
+    max-width: 1000px;
+}
+
+@media screen and (max-width:1600px){
+    .search_form_wrapper {
+        width: 800px;
+    }
+}
+@media screen and (max-width:820px) {
+    .search_form_wrapper {
+        width: 700px;
+    } 
+}
+@media screen and (max-width:750px) {
+    .search_form_wrapper {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .search_wrapper > input {
+        width: 200px;
+    }
 }

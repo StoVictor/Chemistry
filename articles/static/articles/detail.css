@@ -4,14 +4,16 @@
 .article_detail_header {
     font-size: 20px;
     font-weight: bolder;
-    background-color: rgba(120, 193, 255, 0.5);
+
     padding: 10px;
-    border-radius: 20px;
+    border-bottom: 2px solid black;
     display: flex;
     flex-direction: column;
 }
 .article_detail_header_firs_line {
-    
+    display: flex;
+    font-size: 22px;
+    justify-content: space-between;
 }
 .article_detail_type {
     
@@ -24,4 +26,22 @@
 }
 .article_detail_date {
     
+}
+.article_detail_header_second_line {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+}
+.article_difficult {
+    display: flex;
+}
+.article_difficult span {
+    align-self: center;
+}
+
+
+@media screen and (max-width: 600px) {
+    .article_detail_header_second_line {
+        flex-direction: column;
+    }
 }

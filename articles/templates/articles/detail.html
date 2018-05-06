@@ -1,30 +1,40 @@
 {% extends "articles/base.html" %}
    {% load static %}
+        {% block title %}
+        <title>{{article.name}} | Chemistry-world</title>
+        {% endblock %}
+        
+        {% block metedesc %}
+        <meta name="description" content="{{article.short_description}}" />
+        {% endblock %}
+        
+        
     {%block stylesheets %}
         <link href="{% static 'articles/detail.css' %}" rel="stylesheet" type="text/css">
     {% endblock %}
        {% block content %}
-       
+       <div class="article-wrapper">
         <article>
            <div class="detail_article_wrapper">
               <div class="article_detail_header">
                <div class="article_detail_header_firs_line">
-                <div class="article_detail_type">
+                <div class="article_title">
+                    <h1> {{article.name}} </h1>
+                 </div>
+                <div class="article-type">
                    {% if article.exerciese_or_theory == 'theory' %}
                     <img src="{% static 'articles/img/Theory_article.png' %}">
                     {% elif article.exerciese_or_theory == 'exercise' %}
                     <img src="{% static 'articles/img/Exercise_detail.png' %}">
                     {% endif %}
                 </div>
+               </div>
+               <div class="article_detail_header_second_line">
                 <div class="article_detail_topic">
                     {{article.topic}}
-                </div>  
-               </div>
-                 <div class="article_title">
-                     {{article.name}}
-                 </div>
+                </div> 
                  <div class="article_difficult">
-                    Сложность:
+                    <span>Сложность:</span>
                     {% if article.hard >= 1 %}
                     <img src="{% static 'articles/img/red_colba_opacity.png' %}">
                     {% endif %}
@@ -41,6 +51,7 @@
                     <img src="{% static 'articles/img/red_colba_opacity.png' %}">
                     {% endif %}
                  </div>
+                 </div>
                   <div class="article_detail_date">
                       {{article.pub_date|date:"d-m-Y"}}
                   </div>
@@ -52,4 +63,5 @@
            </div>
 
         </article>
+        </div>
         {% endblock %}

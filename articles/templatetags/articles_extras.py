@@ -19,3 +19,9 @@ def substract(arg1, arg2):
     "substract arg2 from arg1"
     return arg1-arg2
 
+@register.filter(name='extsubstr')
+def extsubstr(arg1, arg2):
+    s = ''
+    for i in range(0, int(arg2)+1):
+        s += arg1[i];
+    return s

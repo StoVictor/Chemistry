@@ -8,7 +8,7 @@ from datetime import datetime
 class Topic(MP_Node):
     name = models.CharField(max_length=100)
     node_order_by = ['name']
-
+    short_description = models.TextField(default='', max_length=300)
     def __str__(self):
         return 'Topic: %s' % self.name
 
@@ -28,6 +28,7 @@ class Article(models.Model):
     HARD_CHOICES = zip( range(1,6), range(1,6) )
     hard = models.IntegerField(choices=HARD_CHOICES, blank=True)
     tags = models.ManyToManyField(Tag)
+    
     text = RichTextUploadingField()
     
 
@@ -39,6 +40,7 @@ class Scientist(models.Model):
     name = models.CharField(max_length=100)
     pub_date = models.DateTimeField('date published', default=datetime.now())
     tags = models.ManyToManyField(Tag)
+    short_description = models.TextField(default='', max_length=300)
     text = RichTextUploadingField(default='')
 
     def __str__(self):

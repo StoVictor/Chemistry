@@ -1,11 +1,53 @@
 <!Doctype html>
 <html>
     <head>
+       
+       {% load articles_extras %}
         <meta charset="utf-8">
-        <title>Chemistry</title>
+        {% if request.path == '/'%}
+        <title>Главная | Chemistry-world</title>
+        {% elif request.path == 'articles/exercises' %}
+        <title>Задачи | Chemistry-world</title>
+        {% elif request.path == 'articles/topics/' %}
+        <title>Разделы химии | Chemistry-world</title>
+        {% elif request.path == 'articles/theories' %}
+        <title>Теория | Chemistry-world</title>
+        {% elif request.path == 'articles/scientists' %}
+        <title>История химии | Chemistry-world</title>
+        {% elif request.path == 'articles/search/' %}
+        <title>Поиск статтей | Chemistry-world</title>
+        {% endif %}
+        
+        {% block title %}
+        
+        {% endblock %}
+        
+        {% if request.path == '/'%}
+        <meta name="description" content="На данном сайте вы сможете найти различные материалы для изучния химии. Интересные статьи из множества областей химиии от школьной программы до университета и примерные задачи различных олимпиад. Увлекательная химия ждёт вас!" />
+        {% elif request.path == 'articles/exercises' %}
+        <meta name="description" content="Сборник задач по химии с понятными объяснениями" />
+        {% elif request.path == 'articles/topics/' %}
+        <meta name="description" content="На этой странице находится перечень разделов химии по которым вы сможете подтянуть свои знания в этой прекрасной и несомненно важной науке" />
+        {% elif request.path == 'articles/theories' %}
+        <meta name="description" content="Если у вас проблемы с теорией химии, вы что-то недопоняли на уроке или было просто лень учить, то этот раздел для вас, в кротчайшие сроки и понятным языком мы предоставим объяснение того или иного материала" />
+        {% elif request.path == 'articles/scientists' %}
+        <meta name="description" content="Иногда хочется немного отдохнуть от привычных задач и кучи теории и просто почитать историю химиии, или другую историю, но здесь сайт про химию, по этому здесь только история химии" />
+        {% elif request.path == 'articles/search/' %}
+        <meta name="description" content="Нужно быстро повторить перед важной контрольной или экзаменом? Тогда быстро найдите нужную статью на нашем сайте!" />
+        {% elif request.path|extsubstr:15 == '/articles/topic/' %}
+        <meta name="description" content="{{short_description}}" />
+        {% endif %}
+        
+        {% block metedesc %}
+        
+        {% endblock %}
+        
         {% load static %}
+        
         <link href='{% static "articles/main.css" %}' rel="stylesheet" type="text/css">
         <link href='{% static "articles/Exercsises_and_HardArticles.css" %}' rel="stylesheet" type="text/css">
+        <script src="{% static 'articles/burg_menu.js' %}"></script>
+        <script src="{% static 'articles/resize.js' %}"></script>
         {% block stylesheets %}
         
         {% endblock %}
@@ -14,28 +56,88 @@
         {% endblock %}
     </head>
    <body>
-        <header>
-            <nav>
-                <a class="menu_item" href="{% url 'articles:index' %}"><img src='{% static "articles/img/MainPageIcon.png" %}'><span>Главная</span></a>
-                <a class="menu_item" href="{% url 'articles:exercises' %}"><img src="{% static 'articles/img/Exercise.png' %}"><span>Задачи</span></a>
-                <a class="menu_item" href="{% url 'articles:topics' %}"><img src="{% static 'articles/img/AllChemistryTopics.png' %}"><span> Туториал</span></a>
-                <a class="menu_item" href="{% url 'articles:theories' %}"><img src="{% static 'articles/img/Theory.png' %}"><span>Теория</span></a>
-                <a class="menu_item" href="{% url 'articles:scientists' %}"><img src="{% static 'articles/img/Scientists.png' %}"><span>История химии</span></a>
-                <a class="menu_item" href="{% url 'articles:search' %}"><img src="{% static 'articles/img/search.png' %}"><span>Поиск статтей</span></a>
-            </nav>
-        </header>
+       
+        <div class="cont">
+            <div class="main_menu">
+                <span class="burger_img">
+                    <a class="burger_button" onclick="show()"><img src="{% static 'articles/img/bm.png' %}"></a>
+                </span>
+                {%if request.path == '/' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'index' %}">Главная</a>
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+                {%if request.path == '/articles/exercises' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'articles:exercises' %}">Задачи</a>
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+                {%if request.path == '/articles/topics/' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'articles:topics' %}">Разделы химии</a>
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+                {%if request.path == '/articles/theories' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'articles:theories' %}">Теория</a>
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+                {%if request.path == '/articles/scientists' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'articles:scientists' %}">История химии</a>
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+                {%if request.path == '/articles/search/' %}
+                <span class="menu_elem chosen_elem">
+                {% else %}
+                <span class="menu_elem">
+                {% endif %}
+                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
+                    <a href="{% url 'articles:search' %}">Поиск статтей</a>
+                    <img src="{% static  'articles/img/colba.png' %}" class="selected_menu_elem">
+                </span>
+            </div>
+            
+            
+            
         {% block search %} {% endblock %}
+       
         
-         {% block content %}
+        <div class="articles-wrapper">
+        {% block content %}
          
           {% endblock %}  
+             
+        </div>
 
-           
-        <footer>
-            Web developer: Viktor Stokolos <br>
-            Content maneger: Dmytro Yavorski <br>
-            Copyright © 2017-2018. All Rights Reserved. <br>
-        </footer>
+       </div>
+
+    <footer>
+        <span> Web developer: Viktor Stokolos</span>
+        <span> Content manager: Dmytro Yavorski</span>
+        <span>Copyright © 2017-2018. All Rights Reserved.</span>
+    </footer>
+    
    </body>
 
 </html>

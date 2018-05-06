@@ -188,7 +188,7 @@ def index(request):
 
 def exercise(request):
     return simple_view(request, Article.objects.filter(exerciese_or_theory='exercise').order_by('-pub_date'),
-                       'articles/exercises_or_theories.html', 'exercise')
+                       'articles/index.html', 'exercise')
 
 
 def exercise_detail(request, article_id):
@@ -197,7 +197,7 @@ def exercise_detail(request, article_id):
 
 def theories(request):
     return simple_view(request, Article.objects.filter(exerciese_or_theory='theory').order_by('-pub_date'),
-                       'articles/exercises_or_theories.html', 'theory')
+                       'articles/index.html', 'theory')
 
 
 def theories_detail(request, article_id):
@@ -219,7 +219,10 @@ def topics(request):
 def topic(request, topic_name):
         articles = Article.objects.order_by('-pub_date')
         n_articles = list(articles[:])
-
+        
+        topic = Topic.objects.filter(name=topic_name)
+        short_description = topic[0].short_description
+        
         for article in articles:
             if article.topic.name != topic_name:
                 n_articles.remove(article)
@@ -231,9 +234,10 @@ def topic(request, topic_name):
             'topic_name': topic_name,
             'articles': paginator.get_page(page),
             'type_i_or_t': 'topic',
+            'short_description': short_description,
         }
         
-        return render(request, 'articles/topic.html', context)
+        return render(request, 'articles/index.html', context)
 
 
 def search(request):
@@ -253,7 +257,7 @@ def search(request):
         searched_name = selected_tags['name']
         del selected_tags['name']
         # selected_tags consists not only tags, but tags and types of searched articles
-        # Inside get_articles_by_types in request.session['articles_selected_types'] add a filters by types
+        # Inside get_articles_by_types in request.session['articles_selected_types'] added a filters by types
         articles = get_articles_by_types('POST', request, selected_tags)
         request.session['articles_selected_types'] = []
 
@@ -271,14 +275,6 @@ def search(request):
         checked_list['exercise'] = request.session['filter_exercise']
 
     elif request.method == 'GET':
-
-        if not request.GET.get('page'):
-            request.session['articles_tags'] = {}
-
-            checked_list['history'] = request.session['filter_history'] = True
-            checked_list['theory'] = request.session['filter_exercise'] = True
-            checked_list['exercise'] = request.session['filter_exercise'] = True
-
         try:
             checked_list['history'] = request.session['filter_history']
         except KeyError:
@@ -292,6 +288,13 @@ def search(request):
         except KeyError:
             request.session['filter_exercise'] = True
 
+        if not request.GET.get('page'):
+            request.session['articles_tags'] = {}
+
+            checked_list['history'] = request.session['filter_history'] = True
+            checked_list['theory'] = request.session['filter_theory'] = True
+            checked_list['exercise'] = request.session['filter_exercise'] = True
+
         articles = get_articles_by_types('GET', request, selected_tags)
         n_articles = []
 
@@ -302,8 +305,8 @@ def search(request):
                     if tag in article.tags.values_list('name', flat=True):
                         n_articles.append(article)
                         break
-                if article.name in request.session['articles_name']:
-                    n_articles.append(article)
+               # if article.name in request.session['articles_name']:
+               #     n_articles.append(article)
         else:
             for article in articles:
                 for tag in article.tags.all():
