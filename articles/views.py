@@ -292,7 +292,11 @@ def search(request):
             request.session['articles_tags'] = {}
 
             checked_list['history'] = request.session['filter_history'] = True
+
             checked_list['theory'] = request.session['filter_theory'] = True
+
+            checked_list['theory'] = request.session['filter_exercise'] = True
+
             checked_list['exercise'] = request.session['filter_exercise'] = True
 
         articles = get_articles_by_types('GET', request, selected_tags)
