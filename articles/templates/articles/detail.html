@@ -1,5 +1,6 @@
 {% extends "articles/base.html" %}
    {% load static %}
+       {% load articles_extras %}
         {% block title %}
         <title>{{article.name}} | Chemistry-world</title>
         {% endblock %}
@@ -31,7 +32,7 @@
                </div>
                <div class="article_detail_header_second_line">
                 <div class="article_detail_topic">
-                    {{article.topic}}
+                   <a href="{% url 'articles:topic' topic_name=article.topic.name|substr %}">Тема: {{article.topic|substr}}</a> 
                 </div> 
                  <div class="article_difficult">
                     <span>Сложность:</span>
@@ -56,10 +57,14 @@
                       {{article.pub_date|date:"d-m-Y"}}
                   </div>
               </div>
-               <div class="article_body">
+               <div class="article-content">
                     {{article.text|safe}}
                </div>
-
+                <div class="article-tags">
+                  {% for tag in article.tags.all %}
+                    <span class="tag"><a href="{% url 'articles:search'  %}?tag_name={{tag.name}}">#{{ tag.name }}</a></span>
+                  {% endfor %}
+               </div> 
            </div>
 
         </article>

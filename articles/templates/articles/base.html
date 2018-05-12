@@ -56,87 +56,64 @@
         {% endblock %}
     </head>
    <body>
-       
-        <div class="cont">
-            <div class="main_menu">
-                <span class="burger_img">
-                    <a class="burger_button" onclick="show()"><img src="{% static 'articles/img/bm.png' %}"></a>
-                </span>
-                {%if request.path == '/' %}
-                <span class="menu_elem chosen_elem">
+        <header>
+            <nav>
+                <div class="logo"><a href="{% url 'index' %}"><img src=" {% static 'articles/img/ChemWorld_logo2.png' %}"></a></div>
+                <div class="burger-button" onclick="show()"><img src="{% static 'articles/img/bm.png' %}"></div>
+                
+                {% if request.path == '/' %}
+                    <div class="menu-item chosen-elem"><a href="{% url 'index' %}"><span>Главная</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                    <div class="menu-item"><a href="{% url 'index' %}"><span>Главная</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'index' %}">Главная</a>
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-                {%if request.path == '/articles/exercises' %}
-                <span class="menu_elem chosen_elem">
+                
+                {% if request.path == '/articles/exercises' %}
+                    <div class="menu-item chosen-elem"><a href="{% url 'articles:exercises' %}"><span>Задачи</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                    <div class="menu-item"><a href="{% url 'articles:exercises' %}"><span>Задачи</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'articles:exercises' %}">Задачи</a>
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-                {%if request.path == '/articles/topics/' %}
-                <span class="menu_elem chosen_elem">
+                
+                {% if request.path == '/articles/topics/' %}
+                <div class="menu-item chosen-elem"><a href="{% url 'articles:topics' %}"><span>Разделы химии</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                <div class="menu-item"><a href="{% url 'articles:topics' %}"><span>Разделы химии</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'articles:topics' %}">Разделы химии</a>
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-                {%if request.path == '/articles/theories' %}
-                <span class="menu_elem chosen_elem">
+                
+                {% if request.path == '/articles/theories' %}
+                <div class="menu-item chosen-elem"><a href="{% url 'articles:theories' %}"><span>Теория</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                <div class="menu-item"><a href="{% url 'articles:theories' %}"><span>Теория</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'articles:theories' %}">Теория</a>
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-                {%if request.path == '/articles/scientists' %}
-                <span class="menu_elem chosen_elem">
+                
+                {% if request.path == '/articles/scientists' %}
+                <div class="menu-item chosen-elem"><a href="{% url 'articles:scientists' %}"><span>История химии</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                <div class="menu-item"><a href="{% url 'articles:scientists' %}"><span>История химии</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'articles:scientists' %}">История химии</a>
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-                {%if request.path == '/articles/search/' %}
-                <span class="menu_elem chosen_elem">
+                
+                {% if request.path == '/articles/search/' %}
+                <div class="menu-item chosen-elem"><a href="{% url 'articles:search' %}"><span>Поиск статтей</span></a></div>
                 {% else %}
-                <span class="menu_elem">
+                <div class="menu-item"><a href="{% url 'articles:search' %}"><span>Поиск статтей</span></a></div>
                 {% endif %}
-                    <img src="{% static 'articles/img/colba.png' %}" class="selected_menu_elem">
-                    <a href="{% url 'articles:search' %}">Поиск статтей</a>
-                    <img src="{% static  'articles/img/colba.png' %}" class="selected_menu_elem">
-                </span>
-            </div>
-            
-            
-            
+            </nav>
+        </header>
+        <main>
         {% block search %} {% endblock %}
        
-        
-        <div class="articles-wrapper">
         {% block content %}
          
-          {% endblock %}  
-             
-        </div>
-
-       </div>
-
-    <footer>
-        <span> Web developer: Viktor Stokolos</span>
-        <span> Content manager: Dmytro Yavorski</span>
-        <span>Copyright © 2017-2018. All Rights Reserved.</span>
-    </footer>
+        {% endblock %}  
+        </main>
+        {% block pagination %}
+        
+        {% endblock %}
+        
+         <footer>
+            Web developer: Viktor Stokolos<br>
+            Content manager: Dmytro Yavorski<br>
+            Copyright © 2018-2019. All Rights Reserved.<br>
+        </footer>
     
    </body>
 

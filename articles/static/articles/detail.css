@@ -4,16 +4,16 @@
 .article_detail_header {
     font-size: 20px;
     font-weight: bolder;
-
-    padding: 10px;
-    border-bottom: 2px solid black;
+    padding: 5px;
+    border-bottom: 1px solid gray;
     display: flex;
     flex-direction: column;
 }
 .article_detail_header_firs_line {
     display: flex;
-    font-size: 22px;
+    font-size: 20px;
     justify-content: space-between;
+    align-items: center;
 }
 .article_detail_type {
     

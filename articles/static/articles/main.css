@@ -1,123 +1,110 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
+/* design of top of the site */
+html,
+body {
+  height: 100%;
 }
+
 
 body {
-    background-image: url(img/alt_inverted.png);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(img/back2.png);
     background-repeat: repeat;
+}
+
+header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.cont {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-footer {
+    justify-content: center;
     flex: 0 0 auto;
 }
 
-.main_menu {
-    background-image: url(img/main_line_inverted.png);
-    background-repeat: no-repeat;
-    width: 100%;
+nav {
+    padding: 0px 40px 0px 40px;
     display: flex;
-    align-self: center;
-    margin: 5px 0 0 0;
-    height: 45px;
+    align-items: center;
     flex-direction: row;
-}
-.burger_img {
-    display: none;
-    padding: 8px 25px 8px 25px;
-}
-.main_menu > span {
-    color: white;
-    font-size: 24px;
+    border-bottom: solid 1px #434343;
 }
 
-.selected_menu_elem {
+.burger-button {
+    cursor: pointer;
     display: none;
 }
 
-.menu_elem:hover .selected_menu_elem {
-    display: inline;
+.menu-item {
+    padding: 8px 8px 8px 8px;    
 }
 
-.chosen_elem {
-    background-color: #034cef;
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+.menu-item:hover span{
+    color: black;
+}
+
+.menu-item a {
+    text-decoration: none;
+}
+
+.menu-item span {
+    font-size: 20px;
+    color: black;
+    font-family: 'Bad Script', cursive;
+    font-weight: 600;
+}
+
+.chosen-elem {
+    background-color: black;
+}
+.chosen-elem span {
     color: white;
 }
-.current_page {
-    background-color: #034cef;
-    color: white;
-}
 
-.menu_elem {
-    padding: 8px 25px 8px 25px;
-}
+/* design of content on the site (including articles desing) */
 
-.menu_elem > a {
-    color: #034cef;
-    font-family: 'Raleway', sans-serif;
-}
-
-.chosen_elem>a {
-    color: white;
-}
-
-.articles-wrapper {
+main {
     display: flex;
     flex-direction: column;
+    flex: 1 0 auto;
+    align-items: center;
+    
+    
 }
 
 article {
-    background-color: #e5e5e5;
+    background-color: #f2f2f2;
+    margin: 8px;
+    padding: 10px;
     width: 800px;
+    font-size: 18px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 2px;
+}
+
+.article-header {
     display: flex;
     flex-direction: column;
-    font-size: 22px;
-    border: solid 4px black;
-    margin: 5px 0 20px 0;
 }
 
-
-article a {
-    color: #034cef;
-}
-
-.artile-name-and-type {
+.article-header-first-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
-    font-size: 30px;
-    font-family: 'Raleway', sans-serif;
+    padding: 2px;
+    border-bottom: 1px solid gray;
 }
 
-.article-type {
-    border: solid 4px black;
+.article-title span {
+    font-size: 24px;
 }
 
-.article-topic-and-difficult{
-    padding: 5px;
-    border-top: 4px solid black;
-    border-bottom: 4px solid black;
+.article-header-second-line {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    border-bottom: 1px solid gray;
 }
 
 .article-difficult {
@@ -125,162 +112,175 @@ article a {
     align-items: center;
 }
 
-.article-body {
-    padding: 5px;
-    font-size: 18px;
-    font-weight: 600;
+.article-content {
+    border-bottom: 1px solid gray;
+    padding: 8px 0 8px 0;
 }
-.article-body img {
-    max-width: 90%;
-}
-.article_tags {
-    border: 1px solid black;
+
+.article-tags {
+  
     font-size: 18px;
     font-weight: 100;
 }
+
 .article-footer {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0 0 0;
+    padding: 4px;
 }
 
-
-.article-data {
-    border-top:  2px solid black;
-    border-right: 2px solid black;
-    font-size: 18px;
-    font-weight: bolder;
-    align-self: center;
-    padding:10px;
+.article-date {
+    font-size: 20px;
+    font-weight: 600;
 }
+
 .article-button {
-    margin: 0 10px 10px 0;
+    font-size: 24px;
 }
+
 .pagination {
     margin: 10px;
-    font-size: 22px;
-    background-color: #e5e5e5;
-    padding: 5px;
-    align-self: center;
-    width: auto;
-    display: inline-flex;
+    font-size: 24px;
+    
 }
+
 .pagination a {
-    padding: 0 4px 0 4px;
+    padding: 0px 4px 0 4px;
 }
+
+.current-page {
+    background-color: #c3bebe;
+}
+
+
+
+
+
+/* footer design */
 
 footer {
-
-    display: flex;
-    flex-direction: column;
     background-color: #e5e5e5;
-    width: 90%;
-    max-width: 1000px;
-    border-radius: 10px;
     padding: 10px;
-    color: #034cef;
-    font-weight: 700;
-    margin: 0 0 5px 0;
-    font-size: 20px;
+    margin: 5px 0 0 0;
+    font-size: 18px;
+    border-radius: 8px;
+    width: 800px;
+    flex: 0 0 auto;
+    
 }
 
-.topic-list-wrapper {
-    background-color: #101010;
-    font-size: 30px;
-    padding: 10px;
-    margin: 5px;
-}
-.topic-list-wrapper ul {
+/* topic page design */
+.topic-list {
     list-style: none;
-}
-.topic-list-wrapper a {
-    color: white;
+    font-size: 24px;
 }
 
 
 
-@media screen and (max-width: 1293px) {
-    .main_menu {
-        justify-content: space-between;
-        padding: 0 20px 0 20px;
+/* main page adaptive design */
+@media screen and (max-width:1030px){
+    nav {
+        padding: 20px 0 20px 0;
     }
+
+    .menu-item span {
+        font-size: 20px;
+    }   
 }
 
-@media screen and (max-width: 1145px) {
-    .main_menu > span {
-        font-size: 20px;
+@media screen and (max-width: 920px){
+    nav {
+        padding: 10px 0 10px 0;
     }
     
-    .menu_elem {
-        justify-content: space-between;
-        padding: 10px 5px 10px 5px;
-        display: inline;
+    .menu-item {
+        padding: 4px 4px 4px 4px;
     }
+    
 }
-@media screen and (max-width: 900px){
-    .main_menu {
+
+@media screen and (max-width:873px){
+    nav {
         padding: 0;
+    }
+    
+    .menu-item {
+        padding: 4px 4px 4px 4px;    
+    }
+    
+    .menu-item span {
+        font-size: 18px;
+    }
+    
+    article {
+        width: 95%;
+    }
+    
+    footer {
+        width: 95%;
     }
 }
 
-@media screen and (max-width: 830px){
-    article {
-        width: auto;
-        margin: 2px 0 2px 0;
-        border: 2px solid black;
+@media screen and (max-width: 806px) {
+    header {
+        align-self: flex-start;
     }
-    .article-topic-and-difficult { 
+    
+    nav {
         flex-direction: column;
-        margin: 0;
+        border-bottom: none;
+        align-items: flex-start;
+    }
+    
+    .menu-item {
+        display: none;
+    }
+    
+    .burger-button {
+        display: block;
+    }
+    
+    .logo {
+        display: none;
+    }
+    
+    .menu-item a {
+        display: block;
+       
+    }
+    
+}
+
+@media screen and (max-width: 550px) {
+    
+    article {
+        margin: 8px 0 0 0;
+        padding: 2px;
+    }
+    
+    .article-header-second-line {
+        flex-direction: column;
+    }
+    
+    .article-difficult {
+        font-size: 14px;    
+    }
+    
+    .pagination {
+        margin: 4px;
+        font-size: 20px;
     }
 
     .pagination a {
-        padding: 0 3px 0 3px;
+        padding: 0px 2px 0 2px;
     }
+    
     footer {
-        font-size: 16px;
-    }
-    
-}
-
-@media screen and (max-width: 750px){
-    
-    .main_menu {
-        flex-direction: column;
-        background-repeat: repeat-y;
-        padding: 0px 0px 0 0px;
-        height: auto;
-        width: 100%;
-    }
-    
-    .burger_button {
-        cursor: pointer;
-    }
-    .menu_elem:hover .selected_menu_elem {
-        display: none;
-    }
-    .menu_elem {
-        display: none;
-    }
-    .burger_img {
-        display: inline;
-    }
-    .article-type {
-        border: solid 1px black;
-    }
-    
-}
-
-@media screen and (max-width: 370px) {
-    .artile-name-and-type {
-        font-size: 25px;
+        font-size: 14px;
     }
 }
-
-@media screen and (max-width: 300px){
-    .article-difficult span {
-        font-size: 15px;   
-    }
+@media screen and (max-width: 280px) {
+    .article-difficult {
+        font-size: 12px;
+    }    
 }
-
-

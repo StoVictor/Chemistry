@@ -3,32 +3,31 @@
         {% load static %}
         {% load articles_extras %}
         {% for article in articles %}
-        <article>
+            <article>
+                <div class="article-header">
+                    <div class="article-header-first-line">
+                        <div class="article-title">
+                        <a href="{% url 'articles:scientists_detail' scientist_id=article.id %}"><span>{{article.name}}</span></a>
+                        </div>
+                        <div class="article-type"><img src="{% static 'articles/img/Scientists_article.png' %}"></div>
+                    </div>
+                </div>
+                <div class="article-content">
+                    {{article.text|safe|truncatewords:60}}
+                </div>
+                <div class="article_tags">
+                {% for tag in article.tags.all %}
+                   <span class="tag"><a href="{% url 'articles:search'  %}?tag_name={{tag.name}}">#{{ tag.name }}</a></span>
+                {% endfor %}
+                </div>
+                <div class="article-footer">
+                    <div class="article-date">{{article.pub_date|date:"d-m-Y"}}</div>
+                    <div class="article-button"><a href="{% url 'articles:scientists_detail' scientist_id=article.id %}"><span>Перейти --></span></a></div>
+                </div>
+            </article>
+        
+        
 
-            <div class="artile-name-and-type">
-               <span><a href="{% url 'articles:scientists_detail' scientist_id=article.id %}">{{article.name}}</a></span>
-                <span class="article-type">
-                <img src="{% static 'articles/img/Scientists_article.png' %}">
-                </span>
-            </div>
-
-           <div class="article-body">
-                {{article.text|safe|truncatewords:60}}
-           </div>
-           <div class="article_tags">
-              {% for tag in article.tags.all %}
-               <span class="tag"><a href="{% url 'articles:search'  %}?tag_name={{tag.name}}">#{{ tag.name }}</a></span>
-              {% endfor %}
-           </div>
-           <div class="article-footer">
-           <span class="article-data">{{article.pub_date|date:"d-m-Y"}}</span>
-           <div class="article-button">
-               <a href="{% url 'articles:scientists_detail' scientist_id=article.id %}">Перейти --></a>
-           </div>
-           </div>          
-
-            
-        </article>
         {% endfor %}
         {% include 'articles/blocks/pagination.html' %}
         
